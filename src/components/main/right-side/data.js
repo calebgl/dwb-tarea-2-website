@@ -3,8 +3,9 @@ const Tarea1 = () => {
 		<>
 			<h3 id="list-item-1">Tarea #1</h3>
 			<p>
-				Durante la tarea #1, creamos un método en la clase Program el
-				cual nos servía para hacer un <span>SELECT</span> a la tabla{" "}
+				Durante la tarea #1 creamos un método en la clase{" "}
+				<span className="font-italic">Program</span> el cual nos servía
+				para hacer un <span>SELECT</span> a la tabla{" "}
 				<span className="font-italic">Employees</span>:
 			</p>
 			<pre>
@@ -90,7 +91,8 @@ const Solid = () => {
 			</pre>
 			<p>
 				Para evitar instanciar el objeto 3 veces, declaramos la variable
-				como atributo de la clase Program
+				como atributo de la clase{" "}
+				<span className="font-italic">Program</span>
 			</p>
 			<pre>
 				<code>{`public static NorthwindContext dataContext = new();`}</code>
@@ -133,9 +135,8 @@ public static Extra3(string name)
 			</pre>
 			<p>
 				Dentro del método Extra1() nos interesa filtrar empleados por
-				título, si seguimos de nuevo el primer principio de SOLID, nos
-				dice que deberíamos implementar una función que haga
-				específicamente esto.
+				título. Siguiendo de nuevo el primer principio de SOLID, debemos
+				implementar una función que haga específicamente esto.
 			</p>
 			<pre>
 				<code>{`public static IQueryable<Employee> GetEmployeesByTitle(string title)
@@ -155,14 +156,16 @@ public static Extra3(string name)
 }`}</code>
 			</pre>
 			<p>
-				Si observamos, los métodos previamente creados hacen, a grandes
-				rasgos, lo mismo. Si en algún momento quisieramos filtrar a los
-				empleados con base a país, región, entre otros, tendríamos que
-				modificar nuestro código (y repetirlo), lo mismo ocurriría para
-				la función Extra2(), puesto que también se "filtra" un empleado.
-				Esto infracciona el segundo principio de SOLID (Open-Closed
-				Principle). Para compensarlo podemos crear una clase base que
-				hereden todas las clases. Esta clase tiene la siguiente forma:
+				Observando los métodos previamente creados podemos percatarnos
+				que hacen, a grandes rasgos, lo mismo. Si en algún momento
+				quisieramos filtrar a los empleados con base a país, región,
+				entre otros, tendríamos que modificar nuestro código (y
+				repetirlo). Lo mismo ocurriría para la función Extra2(), puesto
+				que también se "filtra" un empleado. Esto infracciona el segundo
+				principio de SOLID (Open-Closed Principle). Para compensarlo
+				podemos crear una clase base que hereden todas las clases
+				relacionadas con filtros de empleado. Esta clase tiene la
+				siguiente forma:
 			</p>
 			<pre>
 				<code>{`public abstract class EmployeeFilterSpecification
@@ -227,7 +230,10 @@ public static Extra3(string name)
   }
 }`}</code>
 			</pre>
-			<p>Ahora ya con los distintos filtros, creamos su controlador:</p>
+			<p>
+				Ya con los distintos filtros hechos podemos proseguir a crear su
+				controlador:
+			</p>
 			<pre>
 				<code>{`public class EmployeeFilter
 {
@@ -238,7 +244,7 @@ public static Extra3(string name)
 }`}</code>
 			</pre>
 			<p>
-				Cómo implementarlo es muy sencillo, aquí el como quedarían
+				¿Cómo implementarlo? Muy sencillo, aquí el cómo quedarían
 				nuestras funciones con dicha implementación:
 			</p>
 			<pre>
@@ -273,7 +279,7 @@ public static void Extra3(string name)
   output.ForEach(fe => Console.WriteLine($"Nombre: {fe.FirstName}"));
 }`}</code>
 			</pre>
-			<p>De la función Extra2() podemos extraer la siguiente</p>
+			<p>De la función Extra2() podemos extraer la siguiente:</p>
 			<pre>
 				<code>{`public static void UpdateEmployeeFirstNameById(string newName, int id = 1)
 {
@@ -288,7 +294,7 @@ public static void Extra3(string name)
   dataContext.SaveChanges();
 }`}</code>
 			</pre>
-			<p>Y ahora Extra2() quedaría así</p>
+			<p>Y ahora Extra2() quedaría así:</p>
 			<pre>
 				<code>{`public static Extra2(string newName, int id = 1)
 {
@@ -310,15 +316,17 @@ const Arquitectura = () => {
 			<h3>Arquitectura de Servicios y Componentes</h3>
 			<p>
 				Después de haber estructurado mejor nuestro código, podemos ver
-				como nuestro archivo Program creció considerablemente. Si
-				siguieramos implementando nuevas funcionalidades, la
-				manteniblidad de nuestro código sería nula. Es por ello que
-				existe la arquitectura de servicios y componentes, esta nos
-				permite separar nuestras clases de una manera ordenada y fácil
-				de comprender. Para comenzar creemos una carpeta separada dentro
-				de nuestro proyecto, la llamarermos{" "}
-				<span className="font-italic">Services</span>. Dentro de esta
-				carpeta organizaremos nuestras clases. La primera será{" "}
+				como nuestro archivo{" "}
+				<span className="font-italic">Program</span> creció
+				considerablemente. Si siguieramos implementando nuevas
+				funcionalidades, la manteniblidad de nuestro código sería nula.
+				Es por ello que existe la arquitectura de servicios y
+				componentes. Esta nos permite separar nuestras clases de una
+				manera ordenada y fácil de comprender. Para comenzar creemos una
+				carpeta separada dentro de nuestro proyecto, la llamarermos{" "}
+				<span className="font-italic">Services</span> (aunque puede
+				tener cualquier nombre simpre que sea identificable). Dentro de
+				esta carpeta organizaremos nuestras clases, la primera será{" "}
 				<span className="font-italic">BaseSC</span> (SC aludiendo a{" "}
 				<span className="font-italic">Service Component</span>) en ella
 				agregaremos nuestra variable dataContext (Será de acceso
@@ -447,7 +455,7 @@ const Arquitectura = () => {
 				<code>{`public static EmployeeSC employeeSC = new();`}</code>
 			</pre>
 			<p>
-				Y simplemente, donde antes llamabamos a nuestros métodos de
+				Y simplemente donde antes llamabamos a nuestros métodos de
 				empleado, agregamos employeeSC al comienzo. Al final nuestra
 				clase <span className="font-italic">Program</span> quedaría así:
 			</p>
