@@ -1,0 +1,12 @@
+.navbar {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	background-color: rgb(41, 45, 62);
+}
+
+.navbar h2,
+.navbar h4 {
+	display: block;
+	margin: 0;
+}

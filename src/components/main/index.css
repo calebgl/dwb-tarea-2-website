@@ -1,0 +1,10 @@
+.main {
+	display: flex;
+	padding: 2em 0;
+	justify-content: space-evenly;
+}
+
+.main > div {
+	color: #000000;
+	text-align: left;
+}

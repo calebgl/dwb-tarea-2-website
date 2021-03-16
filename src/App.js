@@ -1,25 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./styles/App.css";
+import Navbar from "./components/navbar";
+import Main from "./components/main";
+import { useState, useEffect } from "react";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const [size, setSize] = useState(window.innerWidth);
+
+	const checkSize = () => {
+		setSize(window.innerWidth);
+	};
+
+	useEffect(() => {
+		window.addEventListener("resize", checkSize);
+		return () => {
+			window.removeEventListener("resize", checkSize);
+		};
+	});
+
+	return (
+		<div className="App">
+			<header className="App-header">
+				<Navbar size={size} />
+			</header>
+			<Main size={size} />
+		</div>
+	);
 }
 
 export default App;
