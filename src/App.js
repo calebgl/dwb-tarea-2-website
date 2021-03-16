@@ -5,6 +5,7 @@ import Main from "./components/main";
 import { useState, useEffect } from "react";
 
 function App() {
+	const [value, setValue] = useState(0);
 	const [size, setSize] = useState(window.innerWidth);
 
 	const checkSize = () => {
@@ -21,9 +22,9 @@ function App() {
 	return (
 		<div className="App">
 			<header className="App-header">
-				<Navbar size={size} />
+				<Navbar size={size} value={value} setValue={setValue} />
 			</header>
-			<Main size={size} />
+			<Main size={size} value={value} setValue={setValue} />
 		</div>
 	);
 }

@@ -1,12 +1,17 @@
 .right-side {
 	flex: 0 0 calc(100% - 1em);
-	max-width: 668px;
+}
+
+@media (min-width: 1024px) {
+	.right-side {
+		flex: 0 0 calc(66.66% - 1em);
+		max-width: 668px;
+	}
 }
 
 @media (min-width: 1200px) {
 	.right-side {
-		flex: 0 0 calc(66.66% - 1em);
-		max-width: 848px;
+		max-width: 800px;
 	}
 }
 

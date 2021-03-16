@@ -1,7 +1,7 @@
 import "./index.css";
 import MobileMenu from "./mobile_menu";
 
-const Navbar = ({ size }) => {
+const Navbar = ({ size, value, setValue }) => {
 	return (
 		<div className="container-sm">
 			<div className="navbar">
@@ -9,7 +9,7 @@ const Navbar = ({ size }) => {
 				{size > 1023 ? (
 					<h4>Desarrollo Web: Back-end</h4>
 				) : (
-					<MobileMenu />
+					<MobileMenu value={value} setValue={setValue} />
 				)}
 			</div>
 		</div>

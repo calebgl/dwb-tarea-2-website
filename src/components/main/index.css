@@ -1,7 +1,13 @@
 .main {
 	display: flex;
 	padding: 2em 0;
-	justify-content: space-evenly;
+	justify-content: center;
+}
+
+@media (min-width: 1024px) {
+	.main {
+		justify-content: space-evenly;
+	}
 }
 
 .main > div {

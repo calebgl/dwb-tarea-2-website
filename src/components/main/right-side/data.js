@@ -20,7 +20,7 @@ const Tarea1 = () => {
 			</pre>
 			<p>
 				Para fines ilustrativos y poder realizar esta tarea #2,
-				agregaremos 2 funciones más las cuales nos permitirán
+				agregaremos 3 funciones más las cuales nos permitirán
 				ejemplificar 2 de los principios de SOLID, así como también
 				entender la importancia de la arquitectura de servicios y
 				componentes.
