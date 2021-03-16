@@ -5,7 +5,7 @@ const RightSide = ({ value, size }) => {
 	return (
 		<div
 			className="right-side p-md-4"
-			style={size < 1023 ? { maxWidth: `${size * 0.85}px` } : null}
+			style={size <= 1023 ? { maxWidth: `${size * 0.85}px` } : null}
 		>
 			<div
 				className="scroll"

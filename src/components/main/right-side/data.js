@@ -5,7 +5,7 @@ const Tarea1 = () => {
 			<p>
 				Durante la tarea #1, creamos un método en la clase Program el
 				cual nos servía para hacer un <span>SELECT</span> a la tabla{" "}
-				<span>Employee</span>:
+				<span className="font-italic">Employees</span>:
 			</p>
 			<pre>
 				<code>{`public static void SimpleSelect()
@@ -80,9 +80,10 @@ const Solid = () => {
 		<>
 			<h3 id="list-item-2">Principios de SOLID</h3>
 			<p>
-				A partir de aquí comenzaremos a hacer <span>refactoring</span>.
-				Como se puede observar, nuestras 4 cuatro funciones del apartado
-				Tarea #1 usan una misma acción:
+				A partir de aquí comenzaremos a hacer{" "}
+				<span className="font-italic">refactoring</span>. Como se puede
+				observar, nuestras 4 cuatro funciones del apartado Tarea #1 usan
+				una misma acción:
 			</p>
 			<pre>
 				<code>{`var dataContext = new NorthwindContext();`}</code>
@@ -96,9 +97,11 @@ const Solid = () => {
 			</pre>
 			<p>
 				Siguiendo el primer principio de SOLID (
-				<span>Single Responsability Principle</span>) podemos
-				implementar una función la cual nos permitirá retornar todos los
-				empleados.
+				<span className="font-italic">
+					Single Responsability Principle
+				</span>
+				) podemos implementar una función la cual nos permitirá retornar
+				todos los empleados.
 			</p>
 			<pre>
 				<code>{`private static IQueryable<Employee>GetAllEmployees()
@@ -270,6 +273,33 @@ public static void Extra3(string name)
   output.ForEach(fe => Console.WriteLine($"Nombre: {fe.FirstName}"));
 }`}</code>
 			</pre>
+			<p>De la función Extra2() podemos extraer la siguiente</p>
+			<pre>
+				<code>{`public static void UpdateEmployeeFirstNameById(string newName, int id = 1)
+{
+  var filter = new EmployeeFilter();
+  var result = filter.FilterBy(GetAllEmployees(), new EmFilterId(id));
+  var currentEmployee = result.ToList().FirstOrDefault();
+
+  if (currentEmployee == null)
+    throw new Exception("No se encontró el empleado con el ID ingresado");
+
+  currentEmployee.FirstName = newName;
+  dataContext.SaveChanges();
+}`}</code>
+			</pre>
+			<p>Y ahora Extra2() quedaría así</p>
+			<pre>
+				<code>{`public static Extra2(string newName, int id = 1)
+{
+  UpdateEmployeeFirstNameById(newName, id);
+}`}</code>
+			</pre>
+			<p>
+				Esto se hizo porque, como veremos a continuación en arquitectura
+				de servicios y componentes, no debemos de tener la variable
+				dataContext al alcance de todos y tampoco en la capa "exterior".
+			</p>
 		</>
 	);
 };
@@ -327,6 +357,19 @@ const Arquitectura = () => {
   public IQueryable<Employee> GetAllEmployees()
   {
     return dataContext.Employees;
+  }
+
+  public void UpdateEmployeeFirstNameById(string newName, int id = 1)
+  {
+    var filter = new EmployeeSC.EmployeeFilter();
+    var result = filter.FilterBy(GetAllEmployees(), new EmployeeSC.EmFilterId(id));
+    var currentEmployee = result.ToList().FirstOrDefault();
+
+    if (currentEmployee == null)
+      throw new Exception("No se encontró el empleado con el ID ingresado");
+
+    currentEmployee.FirstName = newName;
+    dataContext.SaveChanges();
   }
 
   public abstract class EmployeeFilterSpecification
@@ -394,7 +437,8 @@ const Arquitectura = () => {
 }`}</code>
 			</pre>
 			<p>
-				Por último, dentro de nuestra clase Program instanciaremos un
+				Por último, dentro de nuestra clase{" "}
+				<span className="font-italic">Program</span> instanciaremos un
 				objeto tipo <span className="font-italic">EmployeeSC</span> que
 				nos permita hacer uso de los métodos que previamente teniamos en
 				la misma
@@ -404,13 +448,49 @@ const Arquitectura = () => {
 			</pre>
 			<p>
 				Y simplemente, donde antes llamabamos a nuestros métodos de
-				empleado, agregamos employeeSC al comienzo, ejemplo:
+				empleado, agregamos employeeSC al comienzo. Al final nuestra
+				clase <span className="font-italic">Program</span> quedaría así:
 			</p>
 			<pre>
-				<code>{`public static SimpleSelect()
+				<code>{`class Program
 {
-  var employeeQuery = employeeSC.GetAllEmployees().Select(s => s);
-	...
+  public static EmployeeSC employeeSC = new();
+  public static void SimpleSelect()
+  {
+
+    var employeeQuery = employeeSC.GetAllEmployees().Select(s => s);
+    var output = employeeQuery.ToList();
+
+    output.ForEach(fe => Console.WriteLine($"Nombre: {fe.FirstName}"));
+  }
+
+  public static void Extra1(string title)
+  {
+    var filter = new EmployeeSC.EmployeeFilter();
+    var result = filter.FilterBy(employeeSC.GetAllEmployees(), new EmployeeSC.EmFilterTitle(title));
+    var output = result.ToList();
+
+    output.ForEach(fe => Console.WriteLine($"Nombre: {fe.FirstName}"));
+  }
+
+  public static void Extra2(string newName, int id = 1)
+  {
+    employeeSC.UpdateEmployeeFirstNameById(newName, id);
+  }
+
+  public static void Extra3(string name)
+  {
+    var filter = new EmployeeSC.EmployeeFilter();
+    var result = filter.FilterBy(employeeSC.GetAllEmployees(), new EmployeeSC.EmFilterName(name));
+    var output = result.ToList();
+
+    output.ForEach(fe => Console.WriteLine($"Nombre: {fe.FirstName}"));
+  }
+
+  static void Main(string[] args)
+  {
+    //Code
+  }
 }`}</code>
 			</pre>
 		</div>
