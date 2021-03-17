@@ -4,9 +4,11 @@ import { IoMdClose } from "react-icons/io";
 import { useState } from "react";
 import data from "../../main/left-side/data";
 import { IconContext } from "react-icons";
+import { useGlobalContext } from "../../../AppProvider";
 
-const MobileMenu = ({ value, setValue }) => {
+const MobileMenu = () => {
 	const [isDisplay, setIsDisplay] = useState(false);
+	const { setValue } = useGlobalContext();
 
 	return (
 		<>

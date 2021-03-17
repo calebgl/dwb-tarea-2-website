@@ -1,19 +1,16 @@
 import "./index.css";
 import data from "./data";
+import { useResponsive } from "../../../ResponsiveProvider";
+import { useGlobalContext } from "../../../AppProvider";
 
-const LeftSide = ({ value, setValue, size }) => {
-	return size > 1023 ? (
+const LeftSide = () => {
+	const size = useResponsive();
+
+	return size >= 1024 ? (
 		<div className="left-side p-md-4">
 			<div className="list-group" id="list">
 				{data.map((accordion) => {
-					return (
-						<List
-							key={accordion.id}
-							{...accordion}
-							value={value}
-							setValue={setValue}
-						/>
-					);
+					return <List key={accordion.id} {...accordion} />;
 				})}
 			</div>
 		</div>
@@ -22,7 +19,8 @@ const LeftSide = ({ value, setValue, size }) => {
 	);
 };
 
-const List = ({ id, title, value, setValue }) => {
+const List = ({ id, title }) => {
+	const { value, setValue } = useGlobalContext();
 	return (
 		<a
 			className={`list-group-item list-group-item-action`}
