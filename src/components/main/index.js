@@ -5,10 +5,13 @@ import RightSide from "./right-side";
 import { useEffect } from "react";
 import hljs from "highlight.js/lib/core";
 import csharp from "highlight.js/lib/languages/csharp";
+import { useGlobalContext } from "../../AppProvider";
 
 hljs.registerLanguage("csharp", csharp);
 
-const Main = ({ size, value, setValue }) => {
+const Main = () => {
+	const { value } = useGlobalContext();
+
 	useEffect(() => {
 		const code = document.querySelectorAll("pre code");
 		code.forEach((code) => {
@@ -19,8 +22,8 @@ const Main = ({ size, value, setValue }) => {
 	return (
 		<div className="container-xl">
 			<div className="main">
-				<LeftSide value={value} setValue={setValue} size={size} />
-				<RightSide value={value} size={size} />
+				<LeftSide />
+				<RightSide />
 			</div>
 		</div>
 	);

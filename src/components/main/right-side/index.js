@@ -1,7 +1,12 @@
 import "./index.css";
 import Array from "./data";
+import { useResponsive } from "../../../ResponsiveProvider";
+import { useGlobalContext } from "../../../AppProvider";
 
-const RightSide = ({ value, size }) => {
+const RightSide = () => {
+	const size = useResponsive();
+	const { value } = useGlobalContext();
+
 	return (
 		<div
 			className="right-side p-md-4"

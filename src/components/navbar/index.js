@@ -1,7 +1,10 @@
 import "./index.css";
 import MobileMenu from "./mobile_menu";
+import { useResponsive } from "../../ResponsiveProvider";
 
-const Navbar = ({ size, value, setValue }) => {
+const Navbar = () => {
+	const size = useResponsive();
+
 	return (
 		<div className="container-sm">
 			<div className="navbar">
@@ -9,7 +12,7 @@ const Navbar = ({ size, value, setValue }) => {
 				{size >= 1024 ? (
 					<h4>Desarrollo Web: Back-end</h4>
 				) : (
-					<MobileMenu value={value} setValue={setValue} />
+					<MobileMenu />
 				)}
 			</div>
 		</div>
