@@ -75,7 +75,7 @@ const Tarea1 = () => {
 }`}</code>
 			</pre>
 			<p>Función extra 3 (filtra los empleados por nombre):</p>
-			<pre>
+			<pre style={{ marginBottom: "0" }}>
 				<code>{`public static void Extra3(string name)
 {
   var dataContext = new NorthwindContext();
@@ -474,7 +474,7 @@ const Arquitectura = () => {
 				empleado, agregamos employeeSC al comienzo. Al final nuestra
 				clase <span className="font-italic">Program</span> quedaría así:
 			</p>
-			<pre>
+			<pre style={{ marginBottom: "0" }}>
 				<code>{`class Program
 {
   public static EmployeeSC employeeSC = new();

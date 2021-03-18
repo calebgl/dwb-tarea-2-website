@@ -6,6 +6,7 @@ import { data } from "../main/data";
 import { IconContext } from "react-icons";
 import { useGlobalContext } from "../../AppProvider";
 import { useResponsive } from "../../ResponsiveProvider";
+import { FiExternalLink } from "react-icons/fi";
 
 const MobileMenu = () => {
 	const [isDisplay, setIsDisplay] = useState(false);
@@ -47,6 +48,20 @@ const MobileMenu = () => {
 								</a>
 							);
 						})}
+						<a
+							href="https://github.com/CalebGuerreroL/SOLID-Principles"
+							target="_blank"
+							rel="noreferrer noopener"
+							className="external"
+						>
+							Código fuente{" "}
+							<FiExternalLink className="external-icon" />
+						</a>
+					</div>
+					<div className="names">
+						<p>Angel Caleb Guerrero Luna</p>
+						<p>Mario Eduardo Lara Loredo</p>
+						<p>Sebastián Ibarra Rodríguez</p>
 					</div>
 				</div>
 			)}
