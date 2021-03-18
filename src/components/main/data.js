@@ -1,3 +1,18 @@
+export const data = [
+	{
+		id: 1,
+		title: "Tarea #1 (Modificaciones)",
+	},
+	{
+		id: 2,
+		title: "Principios SOLID",
+	},
+	{
+		id: 3,
+		title: "Arquitectura de Servicios y Componentes",
+	},
+];
+
 const Tarea1 = () => {
 	return (
 		<>
@@ -505,6 +520,4 @@ const Arquitectura = () => {
 	);
 };
 
-const Array = [<Tarea1 />, <Solid />, <Arquitectura />];
-
-export default Array;
+export const Array = [<Tarea1 />, <Solid />, <Arquitectura />];

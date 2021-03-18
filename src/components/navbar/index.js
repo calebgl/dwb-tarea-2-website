@@ -1,5 +1,5 @@
 import "./index.css";
-import MobileMenu from "./mobile_menu";
+import MobileMenu from "./MobileMenu";
 import { useResponsive } from "../../ResponsiveProvider";
 
 const Navbar = () => {

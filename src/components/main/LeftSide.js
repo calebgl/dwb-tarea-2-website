@@ -1,7 +1,6 @@
-import "./index.css";
-import data from "./data";
-import { useResponsive } from "../../../ResponsiveProvider";
-import { useGlobalContext } from "../../../AppProvider";
+import { data } from "./data";
+import { useResponsive } from "../../ResponsiveProvider";
+import { useGlobalContext } from "../../AppProvider";
 
 const LeftSide = () => {
 	const size = useResponsive();

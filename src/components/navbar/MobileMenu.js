@@ -2,9 +2,9 @@ import "./index.css";
 import { RiMenuFoldFill } from "react-icons/ri";
 import { IoMdClose } from "react-icons/io";
 import { useState } from "react";
-import data from "../../main/left-side/data";
+import { data } from "../main/data";
 import { IconContext } from "react-icons";
-import { useGlobalContext } from "../../../AppProvider";
+import { useGlobalContext } from "../../AppProvider";
 
 const MobileMenu = () => {
 	const [isDisplay, setIsDisplay] = useState(false);
