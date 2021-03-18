@@ -1,8 +1,29 @@
+header {
+	position: fixed;
+	right: 0;
+	top: 0;
+	width: 100%;
+	z-index: 1;
+}
+
+@media (min-width: 1024px) {
+	header {
+		position: relative;
+	}
+}
+
 .navbar {
-	display: flex;
 	align-items: center;
-	justify-content: space-between;
 	background-color: rgb(41, 45, 62);
+	display: flex;
+	justify-content: space-between;
+	margin: auto 0.875em !important ;
+}
+
+@media (min-width: 1024px) {
+	.navbar {
+		margin: unset;
+	}
 }
 
 .navbar h2,
@@ -26,7 +47,7 @@
 	position: fixed;
 	z-index: 2;
 	top: 2.5%;
-	right: 5%;
+	right: 2.5%;
 	font-size: 2rem;
 }
 
@@ -41,11 +62,26 @@
 	padding: 0 2em;
 }
 
+.mobile-menu .option a:first-of-type {
+	margin-top: 2em;
+}
+
 .mobile-menu .option a {
+	width: 100%;
 	flex: 0 0 calc(15% - 1em);
 	display: flex;
 	align-items: flex-end;
-	text-align: end;
+	justify-content: flex-end;
 	text-decoration: none;
 	color: rgb(255, 255, 255);
+}
+
+.mobile-menu .option a.active::after {
+	position: absolute;
+	content: "";
+	margin-right: -0.625em;
+	margin-bottom: -0.25em;
+	width: 5px;
+	height: 5%;
+	background-color: teal;
 }

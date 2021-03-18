@@ -19,13 +19,17 @@ const RightSide = () => {
 		});
 	}, [value]);
 
+	const maxWidth = size * 0.85;
+
 	return (
 		<div
 			className="right-side p-md-4"
-			style={size <= 1023 ? { maxWidth: `${size * 0.85}px` } : null}
+			style={{
+				maxWidth: `${size >= 1024 ? maxWidth * 0.7 : maxWidth}px`,
+			}}
 		>
 			<div
-				className="scroll"
+				className={size >= 1024 ? `scroll` : ""}
 				data-bs-spy="scroll"
 				data-bs-target="#list"
 				data-bs-offset="0"

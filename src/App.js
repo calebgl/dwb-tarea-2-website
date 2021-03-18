@@ -10,9 +10,7 @@ function App() {
 		<AppProvider>
 			<ResponsiveProvider>
 				<div className="App">
-					<header className="App-header">
-						<Navbar />
-					</header>
+					<Navbar />
 					<Main />
 				</div>
 			</ResponsiveProvider>

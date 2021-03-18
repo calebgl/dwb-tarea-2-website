@@ -6,7 +6,7 @@ const LeftSide = () => {
 	const size = useResponsive();
 
 	return size >= 1024 ? (
-		<div className="left-side p-md-4">
+		<div className="left-side p-md-4 flex-shrink-0">
 			<div className="list-group" id="list">
 				{data.map((accordion) => {
 					return <List key={accordion.id} {...accordion} />;

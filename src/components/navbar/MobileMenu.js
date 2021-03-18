@@ -5,10 +5,12 @@ import { useState } from "react";
 import { data } from "../main/data";
 import { IconContext } from "react-icons";
 import { useGlobalContext } from "../../AppProvider";
+import { useResponsive } from "../../ResponsiveProvider";
 
 const MobileMenu = () => {
 	const [isDisplay, setIsDisplay] = useState(false);
-	const { setValue } = useGlobalContext();
+	const size = useResponsive();
+	const { value, setValue } = useGlobalContext();
 
 	return (
 		<>
@@ -25,11 +27,20 @@ const MobileMenu = () => {
 						{data.map((item) => {
 							return (
 								<a
+									key={item.id}
+									className={
+										value === item.id - 1 ? `active` : ""
+									}
 									id={item.id}
-									href={`#list-item-${item.id}`}
+									href={
+										size >= 1024
+											? `#list-item-${item.id}`
+											: "#s"
+									}
 									onClick={() => {
 										setValue(item.id - 1);
 										setIsDisplay(false);
+										window.scroll(0, 0);
 									}}
 								>
 									{item.title}
