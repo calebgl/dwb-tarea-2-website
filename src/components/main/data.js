@@ -299,7 +299,7 @@ public static void Extra3(string name)
 				<code>{`public static void UpdateEmployeeFirstNameById(string newName, int id = 1)
 {
   var filter = new EmployeeFilter();
-  var result = filter.FilterBy(GetAllEmployees(), new EmFilterId(id));
+  var result = filter.FilterBy(new EmFilterId(id));
   var currentEmployee = result.ToList().FirstOrDefault();
 
   if (currentEmployee == null)
