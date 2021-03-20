@@ -185,9 +185,9 @@ public static Extra3(string name)
 			<pre>
 				<code>{`public abstract class EmployeeFilterSpecification
 {
-  public IQueryable<Employee> Filter(IQueryable<Employee> employees)
+  public IQueryable<Employee> Filter()
   {
-    return ApplyFilter(employees);
+    return ApplyFilter(GetAllEmployees());
   }
 
   protected abstract IQueryable<Employee> ApplyFilter(IQueryable<Employee> employees);
@@ -252,9 +252,9 @@ public static Extra3(string name)
 			<pre>
 				<code>{`public class EmployeeFilter
 {
-  public IQueryable<Employee> FilterBy(IQueryable<Employee> employees, EmployeeFilterSpecification filter)
+  public IQueryable<Employee> FilterBy(EmployeeFilterSpecification filter)
   {
-    return filter.Filter(employees);
+    return filter.Filter();
   }
 }`}</code>
 			</pre>
@@ -266,7 +266,7 @@ public static Extra3(string name)
 				<code>{`public static void Extra1(string title)
 {
   var filter = new EmployeeFilter();
-  var result = filter.FilterBy(GetAllEmployees(), new EmFilterTitle(title));
+  var result = filter.FilterBy(new EmFilterTitle(title));
   var output = result.ToList();
 
   output.ForEach(fe => Console.WriteLine($"Nombre: {fe.FirstName}"));
@@ -275,7 +275,7 @@ public static Extra3(string name)
 public static void Extra2(string newName, int id = 1)
 {
   var filter = new EmployeeFilter();
-  var result = filter.FilterBy(GetAllEmployees(), new EmFilterId(id));
+  var result = filter.FilterBy(new EmFilterId(id));
   var currentEmployee = result.ToList().FirstOrDefault();
 
   if (currentEmployee == null)
@@ -288,7 +288,7 @@ public static void Extra2(string newName, int id = 1)
 public static void Extra3(string name)
 {
   var filter = new EmployeeFilter();
-  var result = filter.FilterBy(GetAllEmployees(), new EmFilterName(name));
+  var result = filter.FilterBy(new EmFilterName(name));
   var output = result.ToList();
 
   output.ForEach(fe => Console.WriteLine($"Nombre: {fe.FirstName}"));
@@ -384,8 +384,8 @@ const Arquitectura = () => {
 
   public void UpdateEmployeeFirstNameById(string newName, int id = 1)
   {
-    var filter = new EmployeeSC.EmployeeFilter();
-    var result = filter.FilterBy(GetAllEmployees(), new EmployeeSC.EmFilterId(id));
+    var filter = new EmployeeFilter();
+    var result = filter.FilterBy(new EmFilterId(id));
     var currentEmployee = result.ToList().FirstOrDefault();
 
     if (currentEmployee == null)
@@ -397,9 +397,9 @@ const Arquitectura = () => {
 
   public abstract class EmployeeFilterSpecification
   {
-    public IQueryable<Employee> Filter(IQueryable<Employee> employees)
+    public IQueryable<Employee> Filter()
     {
-      return ApplyFilter(employees);
+      return ApplyFilter(new EmployeeSC().GetAllEmployees());
     }
 
     protected abstract IQueryable<Employee> ApplyFilter(IQueryable<Employee> employees);
@@ -407,9 +407,9 @@ const Arquitectura = () => {
 
   public class EmployeeFilter
   {
-    public IQueryable<Employee> FilterBy(IQueryable<Employee> employees, EmployeeFilterSpecification filter)
+    public IQueryable<Employee> FilterBy(EmployeeFilterSpecification filter)
     {
-      return filter.Filter(employees);
+      return filter.Filter();
     }
   }
 
@@ -477,11 +477,9 @@ const Arquitectura = () => {
 			<pre style={{ marginBottom: "0" }}>
 				<code>{`class Program
 {
-  public static EmployeeSC employeeSC = new();
   public static void SimpleSelect()
   {
-
-    var employeeQuery = employeeSC.GetAllEmployees().Select(s => s);
+    var employeeQuery = new EmployeeSC().GetAllEmployees().Select(s => s);
     var output = employeeQuery.ToList();
 
     output.ForEach(fe => Console.WriteLine($"Nombre: {fe.FirstName}"));
@@ -490,7 +488,7 @@ const Arquitectura = () => {
   public static void Extra1(string title)
   {
     var filter = new EmployeeSC.EmployeeFilter();
-    var result = filter.FilterBy(employeeSC.GetAllEmployees(), new EmployeeSC.EmFilterTitle(title));
+    var result = filter.FilterBy(new EmployeeSC.EmFilterTitle(title));
     var output = result.ToList();
 
     output.ForEach(fe => Console.WriteLine($"Nombre: {fe.FirstName}"));
@@ -498,13 +496,13 @@ const Arquitectura = () => {
 
   public static void Extra2(string newName, int id = 1)
   {
-    employeeSC.UpdateEmployeeFirstNameById(newName, id);
+    new EmployeeSC().UpdateEmployeeFirstNameById(newName, id);
   }
 
   public static void Extra3(string name)
   {
     var filter = new EmployeeSC.EmployeeFilter();
-    var result = filter.FilterBy(employeeSC.GetAllEmployees(), new EmployeeSC.EmFilterName(name));
+    var result = filter.FilterBy(new EmployeeSC.EmFilterName(name));
     var output = result.ToList();
 
     output.ForEach(fe => Console.WriteLine($"Nombre: {fe.FirstName}"));
