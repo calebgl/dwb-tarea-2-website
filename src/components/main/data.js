@@ -149,38 +149,28 @@ public static Extra3(string name)
 }`}</code>
 			</pre>
 			<p>
-				Dentro del método Extra1() nos interesa filtrar empleados por
-				título. Siguiendo de nuevo el primer principio de SOLID, debemos
-				implementar una función que haga específicamente esto.
+				Dentro de los métodos Extra1() y Extra3() nos interesa filtrar
+				empleados por título y nombre, respectivamente. Podemos crear
+				una función la cual se encarge de esto:
 			</p>
 			<pre>
-				<code>{`public static IQueryable<Employee> GetEmployeesByTitle(string title)
+				<code>{`public static IQueryable<Employee> GetEmployeesBy(string type,string search)
 {
-  return GetAllEmployees().Where(w => w.Title == title).Select(s => s);
+  if(type == "title")
+	  GetAllEmployees().Where(w => w.Title == search).Select(s => s);
+  else if (type == "name")
+	  GetAllEmployees().Where(w => w.FirstName == search).Select(s => s);
 }`}</code>
 			</pre>
 			<p>
-				Si seguimos la misma lógica, en nuestro método Extra3() también
-				se da la posibilidad de crear una nueva función que busque o
-				filtre empleados por nombre.
-			</p>
-			<pre>
-				<code>{`public static IQueryable<Employee> GetEmployeesByName(string name)
-{
-  return GetAllEmployees().Where(w => w.FirstName == name).Select(s => s);
-}`}</code>
-			</pre>
-			<p>
-				Observando los métodos previamente creados podemos percatarnos
-				que hacen, a grandes rasgos, lo mismo. Si en algún momento
-				quisieramos filtrar a los empleados con base a país, región,
-				entre otros, tendríamos que modificar nuestro código (y
-				repetirlo). Lo mismo ocurriría para la función Extra2(), puesto
-				que también se "filtra" un empleado. Esto infracciona el segundo
-				principio de SOLID (Open-Closed Principle). Para compensarlo
-				podemos crear una clase base que hereden todas las clases
-				relacionadas con filtros de empleado. Esta clase tiene la
-				siguiente forma:
+				Pero si nos ponemos a pensar, el día de mañana tal vez queramos
+				filtrar empleados en base a otra cosa, por ejemplo una ciudad o
+				título, con lo cual tendríamos que editar la función que
+				previamente creamos. Esto viola el segundo principio de SOLID{" "}
+				<span className="font-italic">(Open-Closed Principle)</span>,
+				pues se supone que debería estar cerrado a modificaciones y
+				abierto a adiciones. Una manera de solventar esto es por medio
+				de clases de la siguiente manera:
 			</p>
 			<pre>
 				<code>{`public abstract class EmployeeFilterSpecification
@@ -259,7 +249,8 @@ public static Extra3(string name)
 }`}</code>
 			</pre>
 			<p>
-				¿Cómo implementarlo? Muy sencillo, aquí el cómo quedarían
+				Con esto hecho ya estamos respetando el segundo principio de
+				SOLID. ¿Cómo implementarlo? Muy sencillo, aquí el cómo quedarían
 				nuestras funciones con dicha implementación:
 			</p>
 			<pre>
